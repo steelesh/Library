@@ -13,7 +13,7 @@
 
     <table class="table">
         <thead>
-            <tr><th>Title</th><th>Author</th><th>Page</th><th>Day Started </th><th></th></tr>
+            <tr><th>Title</th><th>Author</th><th>Page</th><th>Starting Date</th><th></th></tr>
         </thead>
         <tbody>
             @foreach (Class c in Model) {
@@ -21,7 +21,7 @@
                 <td>@c.Title</td>
                 <td>@c.Author</td>
                 <td>@c.Page</td>
-                <td>@c.DayStarted</td>
+                <td>@c.StartingDate</td>
                 
                 <td>
                     <a asp-action="Edit" asp-controller="Class" asp-route-id="@c.ClassId"
