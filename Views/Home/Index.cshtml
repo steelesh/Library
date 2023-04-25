@@ -1,36 +1,18 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="my-4">IT3047C Final Project</h1>
+                <p>Welcome to our final project for IT3047C. Group members: Eric Miller, Miriam Boni, Steele Shreve, and Zion Ivery, share a passion for reading. This project was created as a way to showcase our favorite books, the ones we're currently reading, and the ones we want to read in the future.</p>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-   
-
-    <a asp-action="Add" asp-controller="Class" class="ml-3">Add Current Book</a>
-
-    <table class="table">
-        <thead>
-            <tr><th>Title</th><th>Author</th><th>Page</th><th>Starting Date</th><th></th></tr>
-        </thead>
-        <tbody>
-            @foreach (Class c in Model) {
-            <tr>
-                <td>@c.Title</td>
-                <td>@c.Author</td>
-                <td>@c.Page</td>
-                <td>@c.StartingDate</td>
-                
-                <td>
-                    <a asp-action="Edit" asp-controller="Class" asp-route-id="@c.ClassId"
-                       class="btn btn-outline-dark">Edit</a>
-                    <a asp-action="Delete" asp-controller="Class" asp-route-id="@c.ClassId"
-                       class="btn btn-outline-dark">Delete</a>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-
+                <h2 class="my-4">Features</h2>
+                <p>Our project is built using the ASP.NET Core MVC framework, which allows us to create a web application that is both dynamic and responsive. With this framework, we've developed an application that lets us:</p>
+                <ul>
+                    <li>Add books to our database</li>
+                    <li>Display the books we're currently reading</li>
+                    <li>Showcase our favorite books</li>
+                    <li>List the books we want to read</li>
+                </ul>
+                <p>We hope you enjoy exploring our book collection and maybe even find some inspiration for your next read!</p>
+            </div>
+        </div>
+    </div>

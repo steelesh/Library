@@ -1,0 +1,18 @@
+﻿@model Book
+@{
+    ViewData["Title"] = "Delete Book";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h2 class="my-4">@ViewData["Title"]</h2>
+            <h3 class="mb-4">@Model.Title by @Model.Author (@Model.PublicationYear)</h3>
+            <form asp-action="Delete" method="post" class="d-inline-block">
+                <input type="hidden" asp-for="BookId" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <a asp-controller="DatabaseInfo" asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+    </div>
+</div>
