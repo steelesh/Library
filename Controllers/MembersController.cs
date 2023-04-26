@@ -256,6 +256,120 @@ namespace IT3047C_FinalProj.Controllers
             return RedirectToAction(GetMemberActionName(memberId));
         }
 
+        // START OF WANTTOREAD
+
+        [HttpGet]
+        public IActionResult AddWantToRead(int memberId)
+        {
+            ViewBag.Action = "Add";
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            ViewBag.Genres = _context.Genres.OrderBy(g => g.Name).ToList();
+            return View("EditWantToRead", new Book());
+        }
+
+        [HttpGet]
+        public IActionResult EditWantToRead(int bookId, int memberId)
+        {
+            ViewBag.Action = "Edit";
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            ViewBag.Genres = _context.Genres.OrderBy(g => g.Name).ToList();
+
+            Member member = _context.Members.Include(m => m.WantToRead).FirstOrDefault(m => m.MemberId == memberId);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            Book book = member.WantToRead.FirstOrDefault(f => f.BookId == bookId);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View("EditWantToRead", book);
+        }
+
+        [HttpPost]
+        public IActionResult EditWantToRead(Book book, int memberId)
+        {
+            if (ModelState.IsValid)
+            {
+                Member member = _context.Members.Include(m => m.WantToRead).FirstOrDefault(m => m.MemberId == memberId);
+                if (member == null)
+                {
+                    return NotFound();
+                }
+
+                Book existingBook = member.WantToRead.FirstOrDefault(f => f.BookId == book.BookId);
+                if (existingBook == null)
+                {
+                    member.WantToRead.Add(book);
+                }
+                else
+                {
+                    existingBook.Title = book.Title;
+                    existingBook.Author = book.Author;
+                    existingBook.PublicationYear = book.PublicationYear;
+                    existingBook.GenreId = book.GenreId;
+                }
+
+                _context.SaveChanges();
+                return RedirectToAction(GetMemberActionName(memberId));
+            }
+            else
+            {
+                ViewBag.Action = (book.BookId == 0) ? "Add" : "Edit";
+                ViewBag.ActionName = GetMemberActionName(memberId);
+                ViewBag.MemberId = memberId;
+                ViewBag.Genres = _context.Genres.OrderBy(g => g.Name).ToList();
+                return View("EditWantToRead", book);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult DeleteWantToRead(int bookId, int memberId)
+        {
+            Member member = _context.Members.Include(m => m.WantToRead).FirstOrDefault(m => m.MemberId == memberId);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            Book book = member.WantToRead.FirstOrDefault(f => f.BookId == bookId);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            return View(book);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteWantToRead(Book book, int memberId)
+        {
+            Member member = _context.Members.Include(m => m.WantToRead).FirstOrDefault(m => m.MemberId == memberId);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            Book existingBook = member.WantToRead.FirstOrDefault(f => f.BookId == book.BookId);
+            if (existingBook == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            member.WantToRead.Remove(existingBook);
+            _context.SaveChanges();
+            return RedirectToAction(GetMemberActionName(memberId));
+        }
+
         public IActionResult Eric()
         {
             var member = _context.Members.Include(m => m.Favorites).Include(m => m.CurrentlyReading).Include(m => m.WantToRead).FirstOrDefault(m => m.MemberId == 1);

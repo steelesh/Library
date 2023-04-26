@@ -1,0 +1,20 @@
+﻿@model Book
+@{
+    ViewData["Title"] = "Remove Book";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h2 class="my-4">@ViewData["Title"] from want to read list</h2>
+            <h3 class="mb-4">@Model.Title by @Model.Author (@Model.PublicationYear)</h3>
+            <form asp-action="DeleteWantToRead" method="post" class="d-inline-block">
+                <input type="hidden" asp-for="BookId" />
+                <input type="hidden" name="memberId" value="@ViewBag.MemberId" />
+                <button type="submit" class="btn btn-danger">Remove</button>
+            </form>
+            <a asp-controller="Members" asp-action="@ViewBag.ActionName"
+               class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+    </div>
+</div>
