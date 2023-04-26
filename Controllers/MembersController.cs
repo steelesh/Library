@@ -38,7 +38,7 @@ namespace IT3047C_FinalProj.Controllers
             ViewBag.ActionName = GetMemberActionName(memberId);
             ViewBag.MemberId = memberId;
             ViewBag.Genres = _context.Genres.OrderBy(g => g.Name).ToList();
-            return View("Edit", new Book());
+            return View("EditFavorite", new Book());
         }
 
         [HttpPost]
@@ -74,47 +74,52 @@ namespace IT3047C_FinalProj.Controllers
                 ViewBag.ActionName = GetMemberActionName(memberId);
                 ViewBag.MemberId = memberId;
                 ViewBag.Genres = _context.Genres.OrderBy(g => g.Name).ToList();
-                return View("Edit", book);
+                return View("EditFavorite", book);
             }
         }
 
-        /*        [HttpGet]
-                public IActionResult DeleteFavorite(int id, int memberId)
-                {
-                    Member member = _context.Members.Include(m => m.Favorites).FirstOrDefault(m => m.MemberId == memberId);
-                    if (member == null)
-                    {
-                        return NotFound();
-                    }
+        [HttpGet]
+        public IActionResult DeleteFavorite(int bookId, int memberId)
+        {
+            Member member = _context.Members.Include(m => m.Favorites).FirstOrDefault(m => m.MemberId == memberId);
+            if (member == null)
+            {
+                return NotFound();
+            }
 
-                    Book book = member.Favorites.FirstOrDefault(f => f.BookId == id);
-                    if (book == null)
-                    {
-                        return NotFound();
-                    }
+            Book book = member.Favorites.FirstOrDefault(f => f.BookId == bookId);
+            if (book == null)
+            {
+                return NotFound();
+            }
 
-                    return View(book);
-                }
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            return View(book);
+        }
 
-                [HttpPost]
-                public IActionResult DeleteFavorite(Book book, int memberId)
-                {
-                    Member member = _context.Members.Include(m => m.Favorites).FirstOrDefault(m => m.MemberId == memberId);
-                    if (member == null)
-                    {
-                        return NotFound();
-                    }
 
-                    Book existingBook = member.Favorites.FirstOrDefault(f => f.BookId == book.BookId);
-                    if (existingBook == null)
-                    {
-                        return NotFound();
-                    }
+        [HttpPost]
+        public IActionResult DeleteFavorite(Book book, int memberId)
+        {
+            Member member = _context.Members.Include(m => m.Favorites).FirstOrDefault(m => m.MemberId == memberId);
+            if (member == null)
+            {
+                return NotFound();
+            }
 
-                    member.Favorites.Remove(existingBook);
-                    _context.SaveChanges();
-                    return RedirectToAction(GetMemberActionName(memberId));
-                }*/
+            Book existingBook = member.Favorites.FirstOrDefault(f => f.BookId == book.BookId);
+            if (existingBook == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            member.Favorites.Remove(existingBook);
+            _context.SaveChanges();
+            return RedirectToAction(GetMemberActionName(memberId));
+        }
 
         public IActionResult Eric()
         {

@@ -6,10 +6,14 @@
 <ul>
     @foreach (var book in Model.Favorites)
     {
-        <li>@book.Title (by @book.Author)</li>
+        <li class="list-group-item">
+            @book.Title (by @book.Author)
+            <a asp-controller="Members" asp-action="DeleteFavorite"
+           asp-route-bookId="@book.BookId" asp-route-memberId="@Model.MemberId" class="btn btn-sm btn-danger">Remove</a>
+        </li>
     }
 </ul>
-<a asp-controller="Members" asp-action="AddFavorite" asp-route-memberId="3"
+<a asp-controller="Members" asp-action="AddFavorite" asp-route-memberId="@Model.MemberId"
    class="btn btn-primary">Add Book</a>
 @*<h2>Currently Reading</h2>
 <ul>
