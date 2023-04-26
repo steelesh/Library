@@ -6,16 +6,16 @@ namespace IT3047C_FinalProj.Controllers
 {
     public class DatabaseInfoController : Controller
     {
-        private BookContext context { get; set; }
+        private readonly BookContext _context;
 
-        public DatabaseInfoController(BookContext ctx)
+        public DatabaseInfoController(BookContext context)
         {
-            context = ctx;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            var books = context.Books.Include(m => m.Genre)
+            var books = _context.Books.Include(m => m.Genre)
             .OrderBy(m => m.Title).ToList();
             return View(books);
         }
