@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
+﻿window.addEventListener('DOMContentLoaded', function () {
     const darkModeToggle = document.getElementById('darkModeToggle');
     const databaseInfoTable = document.getElementById('databaseInfoTable');
     const isDarkMode = localStorage.getItem('darkMode') === 'true';
@@ -29,4 +29,8 @@
             }
         }
     }
+    function fadeInOnLoad() {
+        document.querySelector('.fade-in').classList.remove('fade-in');
+    }
 });
+window.addEventListener('DOMContentLoaded', fadeInOnLoad);
