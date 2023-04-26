@@ -44,21 +44,24 @@
     }
 </ul>
 
-@*<h2>Currently Reading</h2>
-<ul>
+<h2 class="mt-4 mb-2">Currently Reading</h2>
+<div class="mb-3">
+    <a asp-controller="Members" asp-action="AddCurrentlyReading" asp-route-memberId="@Model.MemberId"
+       class="btn btn-primary">Add Book</a>
+</div>
+<ul class="list-group custom-list-group">
     @foreach (var book in Model.CurrentlyReading)
     {
-        <li>@book.Title (by @book.Author)</li>
+        <li class="list-group-item">
+            <div class="list-item-content">
+                <span class="book-details"><b>@book.Title</b> (by @book.Author)</span>
+                <span class="action-buttons">
+                    <a asp-controller="Members" asp-action="EditCurrentlyReading"
+                   asp-route-bookId="@book.BookId" asp-route-memberId="@Model.MemberId" class="btn btn-sm btn-warning me-2">Edit</a>
+                    <a asp-controller="Members" asp-action="DeleteCurrentlyReading"
+                   asp-route-bookId="@book.BookId" asp-route-memberId="@Model.MemberId" class="btn btn-sm btn-danger">Remove</a>
+                </span>
+            </div>
+        </li>
     }
 </ul>
-<a asp-controller="Members" asp-action="AddCurrentlyReading" asp-route-memberId="3"
-   class="btn btn-primary">Add Book</a>
-<h2>Want To Read</h2>
-<ul>
-    @foreach (var book in Model.WantToRead)
-    {
-        <li>@book.Title (by @book.Author)</li>
-    }
-</ul>
-<a asp-controller="Members" asp-action="AddWantToRead" asp-route-memberId="3"
-   class="btn btn-primary">Add Book</a>*@

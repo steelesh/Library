@@ -64,7 +64,6 @@ namespace IT3047C_FinalProj.Controllers
             return View("EditFavorite", book);
         }
 
-
         [HttpPost]
         public IActionResult EditFavorite(Book book, int memberId)
         {
@@ -141,6 +140,118 @@ namespace IT3047C_FinalProj.Controllers
             ViewBag.ActionName = GetMemberActionName(memberId);
             ViewBag.MemberId = memberId;
             member.Favorites.Remove(existingBook);
+            _context.SaveChanges();
+            return RedirectToAction(GetMemberActionName(memberId));
+        }
+
+        [HttpGet]
+        public IActionResult AddCurrentlyReading(int memberId)
+        {
+            ViewBag.Action = "Add";
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            ViewBag.Genres = _context.Genres.OrderBy(g => g.Name).ToList();
+            return View("EditCurrentlyReading", new Book());
+        }
+
+        [HttpGet]
+        public IActionResult EditCurrentlyReading(int bookId, int memberId)
+        {
+            ViewBag.Action = "Edit";
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            ViewBag.Genres = _context.Genres.OrderBy(g => g.Name).ToList();
+
+            Member member = _context.Members.Include(m => m.CurrentlyReading).FirstOrDefault(m => m.MemberId == memberId);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            Book book = member.CurrentlyReading.FirstOrDefault(f => f.BookId == bookId);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View("EditCurrentlyReading", book);
+        }
+
+        [HttpPost]
+        public IActionResult EditCurrentlyReading(Book book, int memberId)
+        {
+            if (ModelState.IsValid)
+            {
+                Member member = _context.Members.Include(m => m.CurrentlyReading).FirstOrDefault(m => m.MemberId == memberId);
+                if (member == null)
+                {
+                    return NotFound();
+                }
+
+                Book existingBook = member.CurrentlyReading.FirstOrDefault(f => f.BookId == book.BookId);
+                if (existingBook == null)
+                {
+                    member.CurrentlyReading.Add(book);
+                }
+                else
+                {
+                    existingBook.Title = book.Title;
+                    existingBook.Author = book.Author;
+                    existingBook.PublicationYear = book.PublicationYear;
+                    existingBook.GenreId = book.GenreId;
+                }
+
+                _context.SaveChanges();
+                return RedirectToAction(GetMemberActionName(memberId));
+            }
+            else
+            {
+                ViewBag.Action = (book.BookId == 0) ? "Add" : "Edit";
+                ViewBag.ActionName = GetMemberActionName(memberId);
+                ViewBag.MemberId = memberId;
+                ViewBag.Genres = _context.Genres.OrderBy(g => g.Name).ToList();
+                return View("EditCurrentlyReading", book);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult DeleteCurrentlyReading(int bookId, int memberId)
+        {
+            Member member = _context.Members.Include(m => m.CurrentlyReading).FirstOrDefault(m => m.MemberId == memberId);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            Book book = member.CurrentlyReading.FirstOrDefault(f => f.BookId == bookId);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            return View(book);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCurrentlyReading(Book book, int memberId)
+        {
+            Member member = _context.Members.Include(m => m.CurrentlyReading).FirstOrDefault(m => m.MemberId == memberId);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            Book existingBook = member.CurrentlyReading.FirstOrDefault(f => f.BookId == book.BookId);
+            if (existingBook == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            member.CurrentlyReading.Remove(existingBook);
             _context.SaveChanges();
             return RedirectToAction(GetMemberActionName(memberId));
         }
