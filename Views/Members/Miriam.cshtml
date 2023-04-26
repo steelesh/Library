@@ -1,1 +1,31 @@
-﻿
+﻿@model IT3047C_FinalProj.Models.Member
+
+<h1>@Model.Name</h1>
+
+<h2>Favorites</h2>
+<ul>
+    @foreach (var book in Model.Favorites)
+    {
+        <li>@book.Title (by @book.Author)</li>
+    }
+</ul>
+<a asp-controller="Members" asp-action="AddFavorite" asp-route-memberId="2"
+   class="btn btn-primary">Add Book</a>
+@*<h2>Currently Reading</h2>
+<ul>
+    @foreach (var book in Model.CurrentlyReading)
+    {
+        <li>@book.Title (by @book.Author)</li>
+    }
+</ul>
+<a asp-controller="Members" asp-action="AddCurrentlyReading" asp-route-memberId="2"
+   class="btn btn-primary">Add Book</a>
+<h2>Want To Read</h2>
+<ul>
+    @foreach (var book in Model.WantToRead)
+    {
+        <li>@book.Title (by @book.Author)</li>
+    }
+</ul>
+<a asp-controller="Members" asp-action="AddWantToRead" asp-route-memberId="2"
+   class="btn btn-primary">Add Book</a>*@

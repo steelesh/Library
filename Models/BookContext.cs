@@ -10,9 +10,26 @@ namespace IT3047C_FinalProj.Models
 
         public DbSet<Book> Books { get; set; } = null!;
         public DbSet<Genre> Genres { get; set; } = null!;
+        public DbSet<Member> Members { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Member>()
+                .HasMany(m => m.Favorites)
+                .WithMany("FavoriteBooks")
+                .UsingEntity(j => j.ToTable("MemberFavoriteBooks"));
+
+            modelBuilder.Entity<Member>()
+                .HasMany(m => m.CurrentlyReading)
+                .WithMany("CurrentlyReadingBooks")
+                .UsingEntity(j => j.ToTable("MemberCurrentlyReadingBooks"));
+
+            modelBuilder.Entity<Member>()
+                .HasMany(m => m.WantToRead)
+                .WithMany("WantToReadBooks")
+                .UsingEntity(j => j.ToTable("MemberWantToReadBooks"));
+
             modelBuilder.Entity<Genre>().HasData(
                 new Genre { GenreId = "F", Name = "Fiction" },
                 new Genre { GenreId = "NF", Name = "Non-Fiction" },
@@ -39,6 +56,12 @@ namespace IT3047C_FinalProj.Models
                 new Book { BookId = 14, Title = "The Odyssey", Author = "Homer", PublicationYear = -800, GenreId = "F" },
                 new Book { BookId = 15, Title = "The Iliad", Author = "Homer", PublicationYear = -750, GenreId = "F" }
                 );
+            modelBuilder.Entity<Member>().HasData(
+                new Member { MemberId = 1, Name = "Eric Miller" },
+                new Member { MemberId = 2, Name = "Miriam Boni" },
+                new Member { MemberId = 3, Name = "Steele Shreve" },
+                new Member { MemberId = 4, Name = "Zion Ivery" }
+            );
         }
     }
 }

@@ -1,0 +1,48 @@
+﻿@model Book
+@{
+    string title = ViewBag.Action + " Book";
+    ViewData["Title"] = title;
+}
+
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <h2 class="mb-4 text-center">@ViewBag.Title</h2>
+
+            <form asp-controller="Members" asp-action="EditFavorite" asp-route-memberId="@ViewBag.MemberId" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label">Title</label>
+                    <input asp-for="Title" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Author" class="form-label">Author</label>
+                    <input asp-for="Author" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PublicationYear" class="form-label">Publication Year</label>
+                    <input asp-for="PublicationYear" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="GenreId" class="form-label">Genre</label>
+                    <select asp-for="GenreId" class="form-select">
+                        <option value="">select a genre</option>
+                        @foreach (Genre g in ViewBag.Genres)
+                        {
+                            <option value="@g.GenreId">@g.Name</option>
+                        }
+                    </select>
+                </div>
+                <input type="hidden" asp-for="BookId" />
+                <input type="hidden" name="MemberId" value="@ViewBag.MemberId" />
+
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a asp-controller="Members" asp-action="@ViewBag.ActionName"
+                   class="btn btn-secondary ms-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
