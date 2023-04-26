@@ -54,3 +54,8 @@
     .dark-mode .form-select::placeholder {
         color: #999;
     }
+
+.dark-mode .list-group-item {
+    background-color: #333539;
+    color: #e0e0e0;
+}

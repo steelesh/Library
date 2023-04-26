@@ -29,8 +29,4 @@
             }
         }
     }
-    function fadeInOnLoad() {
-        document.querySelector('.fade-in').classList.remove('fade-in');
-    }
 });
-window.addEventListener('DOMContentLoaded', fadeInOnLoad);
