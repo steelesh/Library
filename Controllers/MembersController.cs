@@ -41,6 +41,30 @@ namespace IT3047C_FinalProj.Controllers
             return View("EditFavorite", new Book());
         }
 
+        [HttpGet]
+        public IActionResult EditFavorite(int bookId, int memberId)
+        {
+            ViewBag.Action = "Edit";
+            ViewBag.ActionName = GetMemberActionName(memberId);
+            ViewBag.MemberId = memberId;
+            ViewBag.Genres = _context.Genres.OrderBy(g => g.Name).ToList();
+
+            Member member = _context.Members.Include(m => m.Favorites).FirstOrDefault(m => m.MemberId == memberId);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            Book book = member.Favorites.FirstOrDefault(f => f.BookId == bookId);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View("EditFavorite", book);
+        }
+
+
         [HttpPost]
         public IActionResult EditFavorite(Book book, int memberId)
         {

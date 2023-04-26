@@ -1,6 +1,6 @@
 ﻿@model IT3047C_FinalProj.Models.Member
 
-<h1>@Model.Name</h1>
+<h1 class="my-4">@Model.Name</h1>
 
 <h2>Favorites</h2>
 <ul>
@@ -8,6 +8,8 @@
     {
         <li class="list-group-item">
             @book.Title (by @book.Author)
+            <a asp-controller="Members" asp-action="EditFavorite"
+           asp-route-bookId="@book.BookId" asp-route-memberId="@Model.MemberId" class="btn btn-sm btn-primary">Edit</a>
             <a asp-controller="Members" asp-action="DeleteFavorite"
            asp-route-bookId="@book.BookId" asp-route-memberId="@Model.MemberId" class="btn btn-sm btn-danger">Remove</a>
         </li>
