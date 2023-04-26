@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using IT3047C_FinalProj.Models;
+﻿using IT3047C_FinalProj.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

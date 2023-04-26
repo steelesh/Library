@@ -1,5 +1,4 @@
-﻿using IT3047C_FinalProj.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace IT3047C_FinalProj.Models
 {

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using IT3047C_FinalProj.Models;
+﻿using IT3047C_FinalProj.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IT3047C_FinalProj.Controllers
 {
