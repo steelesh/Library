@@ -14,17 +14,17 @@ We chose option 1 of the final project where it holds a databse of our favorite 
 
 
 # Project Requirements
--Menu
--CRUD
--6 or more pages
--Database
--Page to display info
--View folders per controller
--Shared folder per controller
--Shared folder with _Layout, _ViewStart, _ViewImports
--www-root with JQuery/Bootstrap/CSS
--Connection String in AppSettings
--DBContext using Dependency Injection
+- Menu
+- CRUD
+- 6 or more pages
+- Database
+- Page to display info
+- View folders per controller
+- Shared folder per controller
+- Shared folder with _Layout, _ViewStart, _ViewImports
+- www-root with JQuery/Bootstrap/CSS
+- Connection String in AppSettings
+- DBContext using Dependency Injection
 
 Members 
 Eric Miller, Miriam Boni, Steele Shreve, Zion Ivery
