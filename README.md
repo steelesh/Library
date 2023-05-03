@@ -1,6 +1,6 @@
 # IT3047C Final Project
 
-We chose option 1 of the final project where it holds a databse of our favorite books
+We chose option 1 of the final project where it holds a database of our favorite books
 
 # Features
 
