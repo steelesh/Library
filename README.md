@@ -29,5 +29,5 @@ We chose option 1 of the final project where it holds a database of our favorite
 Members 
 Eric Miller, Miriam Boni, Steele Shreve, Zion Ivery
 
-# Communiction
+# Communication
 Microsoft Teams - messaged each other weekly
